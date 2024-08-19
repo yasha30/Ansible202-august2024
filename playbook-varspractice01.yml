@@ -1,0 +1,50 @@
+- name: Learning to work with variable data
+  hosts: localhost     
+  connection: local  
+  gather_facts: false 
+
+  vars:
+    servers:
+       - poweredge001
+       - poweredge002
+       - poweredge003
+       - poweredge004
+       - poweredge005
+
+    locations:
+      regions:
+       - northeast
+       - north
+       - northwest
+
+      datacenters:
+       - Hershey Pennsylvania
+       - Rochester New York
+       - Seattle Washington
+
+  tasks:
+   - name: Print out the name of the poweredge001
+     debug:
+       var: servers[0]
+
+   - name: Print out all Datacenters
+     debug:
+       var: locations.datacenters
+
+   - name: Print out north
+     debug:
+       msg: "{{ locations.regions[1] }}"
+  
+   - name: Print out all regions
+     debug:
+       var: item
+     loop: "{{ locations.regions }}"
+       
+   - name: Print out the fourth volume in the list
+     debug:
+        var: servers[3]
+
+   - name: Lists may be combined as they are the same type
+     debug:
+        var: item
+     loop: "{{ locations.regions + locations.datacenters }}"
