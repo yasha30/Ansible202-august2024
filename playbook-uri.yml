@@ -13,5 +13,5 @@
 
      - name: debug
        debug:
-         msg: "{{ output }}"
+         msg: "{{ output.json.Description }}"
 
