@@ -1,0 +1,17 @@
+---
+ - name: Send an HTTP GET to at least one RedFish endpoint
+   hosts: localhost
+   connection: local
+   gather_facts: no
+  
+   tasks:
+
+     - name: url
+       uri:
+         url: http://127.0.0.1:2224/redfish/v1/Systems/437XR1138R2/VirtualMedia
+       register:  output
+
+     - name: debug
+       debug:
+         msg: "{{ output }}"
+

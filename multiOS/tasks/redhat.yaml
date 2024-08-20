@@ -1,0 +1,9 @@
+---
+# tasks/redhat.yml
+# tasks only to be run on redhat
+- name: Perform an yum operation (redhat uses the yum package installer)
+  yum:
+      name: sl
+      state: present
+  become: yes # run this as sudo
+

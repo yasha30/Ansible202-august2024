@@ -1,0 +1,27 @@
+---
+- name: Retrieve a random Simpsons quote and assert its Homer
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Read a quote from The Simpsons API
+      uri:
+        url: "https://thesimpsonsquoteapi.glitch.me/quotes?character=simpson"
+        method: GET
+        return_content: yes
+      register: quote_response
+
+    - name: Print the quote data received
+      debug:
+        var: quote_response.json[0]
+
+    - name: Display the ONLY the quote
+      debug:
+        msg: "{{ quote_response.json[0].quote }}"
+
+    - name: Assert the quote is from Homer Simpson
+      assert:
+        that: quote_response.json[0].character == "Homer Simpson"
+        fail_msg: "Not a Homer quote. D'oh!"
+        success_msg: "This IS a Homer quote. WOO-HOO!"

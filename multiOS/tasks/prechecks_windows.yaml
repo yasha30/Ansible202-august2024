@@ -1,0 +1,9 @@
+---
+# tasks/prechecks_windows.yml
+# precheck tasks to be run on windows only    
+- name: Assert the distribution version matched
+  assert: 
+    that: ansible_distribution_major_version == "10"
+    fail_msg: "distribution version is 10"
+    success_msg: "distribution version is 10"
+
