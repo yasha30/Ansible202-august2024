@@ -1,0 +1,90 @@
+
+PLAY [collecting info (facts)] *************************************************
+
+TASK [Get default inventory information] ***************************************
+ok: [rf04]
+
+TASK [Display the gathered facts about Firmware] *******************************
+ok: [rf04] => {
+    "results": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python3.10"
+        },
+        "changed": false,
+        "failed": false,
+        "redfish_facts": {
+            "system": {
+                "entries": [
+                    [
+                        {
+                            "system_uri": "/redfish/v1/Systems/437XR1138R2"
+                        },
+                        {
+                            "AssetTag": "Chicago-45Z-2381",
+                            "BiosVersion": "P79 v1.45 (12/06/2017)",
+                            "BootProgress": {
+                                "LastBootTimeSeconds": 676,
+                                "LastState": "OSRunning",
+                                "LastStateTime": "2021-03-13T04:14:13+06:00"
+                            },
+                            "HostName": "web483",
+                            "Id": "437XR1138R2",
+                            "Manufacturer": "Contoso",
+                            "MemorySummary": {
+                                "MemoryMirroring": "None",
+                                "Status": {
+                                    "Health": "OK",
+                                    "HealthRollup": "OK",
+                                    "State": "Enabled"
+                                },
+                                "TotalSystemMemoryGiB": 96,
+                                "TotalSystemPersistentMemoryGiB": 0
+                            },
+                            "Model": "3500",
+                            "Name": "WebFrontEnd483",
+                            "PartNumber": "224071-J23",
+                            "PowerState": "On",
+                            "ProcessorSummary": {
+                                "CoreCount": 8,
+                                "Count": 2,
+                                "LogicalProcessorCount": 16,
+                                "Model": "Multi-Core Intel(R) Xeon(R) processor 7xxx Series",
+                                "Status": {
+                                    "Health": "OK",
+                                    "HealthRollup": "OK",
+                                    "State": "Enabled"
+                                }
+                            },
+                            "SKU": "8675309",
+                            "SerialNumber": "437XR1138R2",
+                            "Status": {
+                                "Health": "OK",
+                                "HealthRollup": "OK",
+                                "State": "Enabled"
+                            },
+                            "SystemType": "Physical",
+                            "TrustedModules": [
+                                {
+                                    "FirmwareVersion": "1.13b",
+                                    "InterfaceType": "TPM1_2",
+                                    "Status": {
+                                        "Health": "OK",
+                                        "State": "Enabled"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "ret": true
+            }
+        },
+        "warnings": [
+            "Platform linux on host rf04 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information."
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+rf04                       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

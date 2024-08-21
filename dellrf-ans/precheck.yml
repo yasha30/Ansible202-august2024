@@ -1,0 +1,39 @@
+---
+  # Precheck
+  - name: Assert that an expected condition is true (this is a chicago asset)
+    assert:
+      that:
+          - "'Chicago' in results.redfish_facts.system.entries[0][1].AssetTag"
+      success_msg: "Confirmed a Chicago asset"
+
+  - name: Ensure the correct model is being used
+    assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].Model == "3500"
+      success_msg: "Confrimed model 3500"
+      fail_msg: "This does not appear to be a model 3500. Aborting."
+
+  - name: Check ID
+    assert:
+      that:
+        - "'437XR1138R2' in results.redfish_facts.system.entries[0][1].Id"
+      success_msg: "Id is correct"
+
+  - name: Ensure that the hostname is web483
+    assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].HostName == "web483"
+      success_msg: "hostname is correct"
+
+  - name: Emsure that System Health is OK
+    assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].Status.Health == "OK"
+      success_msg: "system health is good"
+
+  - name: Ensure trsuted modules
+    assert:
+      that:
+        - results.redfish_facts.system.entries[0][1].TrustedModules[0].FirmwareVersion == "1.13b"
+      
+
