@@ -1,0 +1,26 @@
+---
+ - name: power up the PowerEdge
+   hosts: idrac
+   connection: local
+   gather_facts: no
+
+   vars:
+    idrac_user: root
+    idrac_pass: r0gerwilc0
+    powerstatus: "On"
+
+
+   tasks:
+
+   - name: Manage power state of the first device
+     dellemc.openmanage.redfish_powerstate:
+       baseuri: "{{ idrac_ip }}"
+       username: "{{ idrac_user }}"
+       password: "{{ idrac_pass}}"
+       reset_type: "{{ powerstatus }}"
+       validate_certs: False
+     register: result
+
+   - name: print out result   
+     debug:
+      var: result
