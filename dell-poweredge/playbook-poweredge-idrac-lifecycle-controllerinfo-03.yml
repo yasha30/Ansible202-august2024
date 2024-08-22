@@ -1,13 +1,19 @@
----
-# tasks file for powercycle
+# In order to use this solution first run, "python3 -m pip install omsdk"
+- name: Full audit of iDRAC interface  # metadata (name of our play)
+  hosts: localhost      # maps to inventory
+  connection: local     # enable ansible to work with a local library (such as an SDK)
+  gather_facts: False   # turn off the first task which is by default an audit
+
+  tasks:
+
   - name: PRECHECKING - Check Health of iDRAC
     block:
 
     - name: Show status of the Lifecycle Controller
       dellemc.openmanage.idrac_lifecycle_controller_status_info:
-        idrac_ip: "{{ idrac_ip }}"
-        idrac_user: "{{ idrac_user }}"
-        idrac_password: "{{ idrac_password }}"
+        idrac_ip: "10.0.0.89"
+        idrac_user: 'root'
+        idrac_password: r0gerwilc0
         validate_certs: False
       register: results
 
@@ -34,9 +40,9 @@
 
     - name: Collect Logs when iDRAC is unhealthy
       dellemc.openmanage.idrac_lifecycle_controller_logs:
-          idrac_ip: "{{ idrac_ip }}"
-          idrac_user: "{{ idrac_user }}"
-          idrac_password: "{{ idrac_password }}"
+          idrac_ip: "10.0.0.89"
+          idrac_user: "root"
+          idrac_password: "r0gerwilc0"
           validate_certs: False
           share_name: "/tmp/export_lc"  # local export
       ## when: results.lc_status_info.LCReady != true or results.lc_status_info.LCStatus != "Ready"
@@ -44,3 +50,4 @@
     - name: PRECHECK FAIL - Exit the playbook
       fail:
         msg: "Precheck failed. Exiting the playbook"
+

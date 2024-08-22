@@ -1,0 +1,9 @@
+# In order to use this solution first run, "python3 -m pip install omsdk"
+- name: Full audit of iDRAC interface  # metadata (name of our play)
+  hosts: localhost      # maps to inventory
+  connection: local     # enable ansible to work with a local library (such as an SDK)
+  gather_facts: False   # turn off the first task which is by default an audit
+
+          
+  roles:
+    - powercycle

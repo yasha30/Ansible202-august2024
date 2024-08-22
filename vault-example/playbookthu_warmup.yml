@@ -1,0 +1,33 @@
+---
+- hosts: localhost   
+  connection: local
+  name: Get Installed Firmware Inventory
+  gather_facts: no
+
+  collections:
+    - dellemc.openmanage
+
+  vars_files:
+    - vars/secret.yml     
+  vars:
+    idrac_ip: 10.0.0.89
+    idrac_user: root
+      #    idrac_password: r0gerwilc0  # Convert this to use Ansible Vault
+
+  tasks:
+  - name: Get Installed Firmware Inventory.
+    idrac_firmware_info:
+       idrac_ip: "{{ idrac_ip }}"
+       idrac_user: "{{ idrac_user }}"
+       idrac_password:  "{{ idrac_pwd }}"
+       validate_certs: False
+    register: results
+
+  - name: Display the gathered facts about Firmware
+    debug:
+      var: results
+
+  - name: Display just the results.firmware_info.Firmware[]ElementNames
+    debug:
+      var: item.ElementName
+    loop: "{{ results.firmware_info.Firmware }}"
